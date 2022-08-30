@@ -1,41 +1,51 @@
-let idTarefa = 0
 const inputTarefa = document.getElementById("tarefa-nova")
 
+let idTarefa = 0
+
 function adicionarTarefa() {
-    const item = document.createElement("li")
+ 
+    const item = document.createElement("li");
+   
+    item.id = idTarefa 
 
-    item.innerHTML = `<li>
-        <span>${inputTarefa.value}</span>
-        <button class="excluir">x</button>
-    </li>`  
+    item.innerHTML = `
+        <span onclick="concluir"(${idTarefa})">${inputTarefa.value}</span>
+        <button class = "concluida" onclick = "concluida (event)">Concluida</button>
+        <button class="excluir" onclick="excluir(event)">x</button>`;
 
-    const lista = document.querySelector("#lista")
+       const lista = document.querySelector("#lista");
+
     lista.appendChild(item);
-
-    inputTarefa.value=""
-
-    idTarefa++
-    item.id = idTarefa
+        idTarefa++;
+        inputTarefa.value = ""
+        
 }
 
 const botaoAdicionar = document.querySelector("#btn-adicionar")
 botaoAdicionar.addEventListener("click", adicionarTarefa)
 
-
-function limparlista(){
-    const lista = document.querySelector("#lista")
+function limparLista() {
+    const lista = document.querySelector("#lista");
     lista.innerHTML = ""
 }
-
 const botaoLimpar = document.querySelector(".bt-azul")
-botaoLimpar.addEventListener("click", limparlista)
 
-function concluir(){
-    const tarefaSelecionada = document.querySelector("#lista")
-    tarefaSelecionada.className = "concluida"
+botaoLimpar.addEventListener("click", limparLista)
+
+function concluir (itemId) {
+    const tarefaSelecionada = document.getElementById (itemId);
+    tarefaSelecionada.className = "pronto"
 }
 
-function excluir(){
-    const tarefaSelecionada = document.querySelector("#lista")
-    tarefaSelecionada.remove()= "x"
+const botaoConcluir = document.querySelector (".concluida")
+
+botaoConcluir.addEventListener ("click", concluir)
+
+function excluir (itemId) {
+    const item = document.querySelector("li");
+    item.remove ()
 }
+
+const botaoExcluir = document.querySelector (".excluir")
+
+botaoExcluir.addEventListener ("click", excluir)
